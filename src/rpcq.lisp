@@ -326,11 +326,10 @@ LIMITATIONS:
                                      (snake-to-kebab (symbol-name slot-name))))
 
            (defaultify (default defaultp field-type)
-             (if defaultp
-                 default
-                 (if (eql field-type ':bool)
-                     ':none
-                     nil)))
+             (cond
+              (defaultp default)
+              ((eql field-type ':bool) ':none)
+              (t nil)))
 
            (make-slot-spec (field-spec)
              (let*
